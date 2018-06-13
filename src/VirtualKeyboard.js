@@ -15,21 +15,23 @@ import styles from './VirtualKeyboard.style';
 class VirtualKeyboard extends Component {
 
 	static propTypes = {
+		style: PropTypes.object,
 		pressMode: PropTypes.oneOf(['string', 'char']),
 		color: PropTypes.string,
 		onPress: PropTypes.func.isRequired,
 		backspaceImg: PropTypes.number,
 		applyBackspaceTint: PropTypes.bool,
 		decimal: PropTypes.bool,
-	}
+	};
 
 	static defaultProps = {
+		style: {},
 		pressMode: 'string',
 		color: 'gray',
 		backspaceImg: require('./backspace.png'),
 		applyBackspaceTint: true,
 		decimal: false,
-	}
+	};
 
 	constructor(props) {
 		super(props);
@@ -40,11 +42,11 @@ class VirtualKeyboard extends Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
+			<View style={[styles.container, this.props.style.container]}>
 				{this.Row([1, 2, 3])}
 				{this.Row([4, 5, 6])}
 				{this.Row([7, 8, 9])}
-				<View style={styles.row}>
+				<View style={[styles.row, this.props.style.row]}>
 					{this.props.decimal ? this.Cell('.') : <View style={{ flex: 1 }} /> }
 					{this.Cell(0)}
 					{this.Backspace()}
@@ -64,7 +66,7 @@ class VirtualKeyboard extends Component {
 	Row(numbersArray) {
 		let cells = numbersArray.map((val) => this.Cell(val));
 		return (
-			<View style={styles.row}>
+			<View style={[styles.row, this.props.style.row]}>
 				{cells}
 			</View>
 		);
@@ -72,7 +74,7 @@ class VirtualKeyboard extends Component {
 
 	Cell(symbol) {
 		return (
-			<TouchableOpacity style={styles.cell} key={symbol} accessibilityLabel={symbol.toString()} onPress={() => { this.onPress(symbol.toString()) }}>
+			<TouchableOpacity style={[styles.cell, this.props.style.cell]} key={symbol} accessibilityLabel={symbol.toString()} onPress={() => { this.onPress(symbol.toString()) }}>
 				<Text style={[styles.number, { color: this.props.color }]}>{symbol}</Text>
 			</TouchableOpacity>
 		);
