@@ -86,6 +86,11 @@ class VirtualKeyboard extends Component {
         );
     }
 
+    resetText() {
+        this.setState({text: ''});
+        this.props.onPress('');
+    }
+
     onPress(val) {
         if (this.props.pressMode === 'string') {
             let curText = this.state.text;
