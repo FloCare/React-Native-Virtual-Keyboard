@@ -88,6 +88,7 @@ class VirtualKeyboard extends Component {
 
     resetText() {
         this.setState({text: ''});
+        this.props.onPress('');
     }
 
     onPress(val) {
